@@ -1,0 +1,20 @@
+package io.hellowordvertx;
+
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Future;
+
+public class MyFirstVerticle extends AbstractVerticle {
+
+	public void start(Future<Void> fut) {
+		vertx.createHttpServer().requestHandler(r -> {
+			r.response().end("<h1>Hello World Vertx</h1>");
+		}).listen(8080, result -> {
+			if (result.succeeded()) {
+				fut.complete();
+			} else {
+				fut.fail(result.cause());
+			}
+		});
+	}
+
+}
